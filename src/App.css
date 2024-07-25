@@ -1,38 +1,72 @@
-.App {
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: #fff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Login Styles */
+.login-container {
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  background: #2c2c2c;
+  color: #fff;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.custom-logo {
+  width: 100px;
+  margin: 0 auto 20px auto;
+  display: block;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.login-card h2 {
+  font-weight: bold;
+  color: #e5e5e5;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.login-card p {
+  color: #a6a6a6;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #21d07a 0%, #217ed4 100%);
+  border: none;
+  color: #fff;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  margin: 0 auto;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:hover {
+  background: linear-gradient(135deg, #217ed4 0%, #21d07a 100%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.metamask-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
