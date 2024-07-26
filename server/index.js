@@ -3,6 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
 const { Network, Alchemy } = require('alchemy-sdk');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -10,7 +11,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
     credentials: true,
@@ -18,7 +19,7 @@ const io = socketIo(server, {
 });
 
 const settings = {
-  apiKey: process.env.ALCHEMY_API_KEY || "QdBTnsO9zdFkfycyIGmNRFiFYVsDQuNB",
+  apiKey: process.env.ALCHEMY_API_KEY,
   network: Network.ETH_MAINNET,
 };
 
