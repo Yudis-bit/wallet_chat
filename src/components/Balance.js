@@ -1,36 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:4000');
 
 const Balance = ({ account }) => {
   const [balance, setBalance] = useState(0);
   const [badge, setBadge] = useState('');
 
   useEffect(() => {
-    const getBalance = async () => {
-      const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
-      try {
-        const balance = await web3.eth.getBalance(account);
-        const balanceInEth = web3.utils.fromWei(balance, 'ether');
-        console.log(`Fetched balance for account ${account}: ${balanceInEth} ETH`);
-        setBalance(balanceInEth);
-        determineBadge(balanceInEth);
-      } catch (error) {
-        console.error('Error fetching balance:', error);
-      }
+    const getBalance = () => {
+      socket.emit('fetchBalance', account);
     };
 
-    const determineBadge = (balance) => {
-      if (balance >= 100) {
-        setBadge('Gold');
-      } else if (balance >= 50) {
-        setBadge('Silver');
-      } else {
-        setBadge('Bronze');
-      }
-    };
+    socket.on('balance', ({ account, balance }) => {
+      console.log(`Fetched balance for account ${account}: ${balance} ETH`);
+      setBalance(balance);
+      determineBadge(balance);
+    });
+
+    socket.on('error', (errorMessage) => {
+      console.error(errorMessage);
+    });
 
     getBalance();
+
+    return () => {
+      socket.off('balance');
+      socket.off('error');
+    };
   }, [account]);
+
+  const determineBadge = (balance) => {
+    if (balance >= 100) {
+      setBadge('Gold');
+    } else if (balance >= 50) {
+      setBadge('Silver');
+    } else {
+      setBadge('Bronze');
+    }
+  };
 
   return (
     <div className="balance-info">
